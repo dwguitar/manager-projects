@@ -23,8 +23,8 @@ CREATE TABLE  IF NOT EXISTS projeto (
 );
 
 
-CREATE TABLE  IF NOT EXISTS membros (
-     idmembro INTEGER NOT NULL PRIMARY KEY,
+CREATE TABLE  IF NOT EXISTS membro (
+     id INTEGER NOT NULL PRIMARY KEY,
      idprojeto INTEGER NOT NULL,
      idpessoa INTEGER NOT NULL,
      CONSTRAINT fk_membros_projeto FOREIGN KEY (idprojeto) REFERENCES projeto (id),

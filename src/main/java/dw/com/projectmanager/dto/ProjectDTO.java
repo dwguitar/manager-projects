@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -25,8 +26,8 @@ public class ProjectDTO {
     private String status;
     private BigDecimal orcamento;
     private String risco;
-    private Person person;
-    private List<Member> members;
+    private PersonDTO person;
+    private List<MemberDTO> members;
 
     public static ProjectDTO mapFromProject(Project project) {
         ProjectDTO projectDTO = new ProjectDTO();
@@ -39,10 +40,29 @@ public class ProjectDTO {
         projectDTO.setOrcamento(project.getOrcamento());
         projectDTO.setRisco(project.getRisco());
         projectDTO.setStatus(project.getStatus());
-        projectDTO.setPerson(project.getPerson());
-        projectDTO.setMembers(project.getMembers());
+        projectDTO.setPerson(mapFromPerson(project.getPerson()));
+        projectDTO.setMembers(mapFromMember(project.getMembers()));
 
 
         return projectDTO;
     }
+
+    public static PersonDTO mapFromPerson(Person person) {
+        PersonDTO personDTO = new PersonDTO();
+        personDTO.setId(person.getId());
+        personDTO.setCpf(person.getCpf());
+        personDTO.setName(person.getName());
+        personDTO.setBirthDate(person.getBirthDate());
+        personDTO.setEmployee(person.getEmployee());
+        return personDTO;
+    }
+
+    public static List<MemberDTO> mapFromMember(List<Member> members) {
+        return members.stream()
+                .map(MemberDTO::mapFromMember)
+                .collect(Collectors.toList());
+    }
+
+
+
 }
